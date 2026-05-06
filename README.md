@@ -6,6 +6,8 @@
 > intentionally excluded. Some excluded areas are represented by placeholder
 > README/template files so the public structure is understandable. See
 > `PUBLIC_EXPORT_MANIFEST.md`.
+> External local files and directories referenced by this template are listed in
+> `EXTERNAL_REFERENCES.md`.
 
 > 规范路径：`/path/to/AI-Shared`
 > 用途：作为 Codex、Claude、Gemini、Kimi 共用的长期文档与知识主仓。
@@ -115,6 +117,7 @@
 - `handoff/`：跨模型协作记录、同步队列与变更历史；公开版只保留空白模板
 - `agents/`：模型适配说明
 - `entrypoints/README.md`：根入口与本地入口投影的来源文件
+- `EXTERNAL_REFERENCES.md`：仓外引用清单
 - `backups/` 与 `archive/`：迁移归档快照与归档项目；公开版只保留占位说明，正常遍历时排除
 
 ## 本地运行态

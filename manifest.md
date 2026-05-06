@@ -9,6 +9,7 @@
 ## 正式入口文件
 
 - `README.md`：共享层总入口与使用说明
+- `EXTERNAL_REFERENCES.md`：仓外引用清单
 - `agents/<model>.md`：模型适配说明
 - `rules/policy.md`：共享层正式规则
 - `rules/README.md`：规则索引

@@ -12,6 +12,7 @@ personal profile material, private project records, or local runtime state.
 ## Included Paths
 
 - `README.md`
+- `EXTERNAL_REFERENCES.md`
 - `manifest.md`
 - `AGENTS.md`
 - `CLAUDE.md`
@@ -60,6 +61,7 @@ personal profile material, private project records, or local runtime state.
 - Private names, domains, host names, project names, and notification channel IDs are replaced with generic terms.
 - Historical migration notes and project handover snapshots are not included unless they are already generic.
 - Excluded private areas may have placeholder README/template files so readers can understand the intended structure.
+- External local paths such as `${HOME}/.agents`, `${HOME}/.codex`, `${HOME}/.claude`, `${HOME}/.gemini`, and `${HOME}/.kimi` are documented in `EXTERNAL_REFERENCES.md`; their contents are not exported.
 - The public export should be initialized as a new Git repository with clean history.
 
 ## Pre-Publish Checks
