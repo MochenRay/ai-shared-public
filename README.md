@@ -3,7 +3,9 @@
 > Public export note: this is a sanitized template/example export of a private
 > shared-context repository. Private memory, profile material, handoff logs,
 > backups, archived material, credentials, and private project records are
-> intentionally excluded. See `PUBLIC_EXPORT_MANIFEST.md`.
+> intentionally excluded. Some excluded areas are represented by placeholder
+> README/template files so the public structure is understandable. See
+> `PUBLIC_EXPORT_MANIFEST.md`.
 
 > 规范路径：`/path/to/AI-Shared`
 > 用途：作为 Codex、Claude、Gemini、Kimi 共用的长期文档与知识主仓。
@@ -105,15 +107,15 @@
 ## 目录总览
 
 - `rules/README.md`：规则索引与旧入口说明
-- `profile/README.md`：用户画像、健康与自我探索索引
-- `memory/MEMORY.md`：稳定记忆、决策与待决问题索引
-- `projects/README.md`：项目首页、交接页、操作手册与观察记录索引
+- `profile/README.md`：用户画像、健康与自我探索索引；公开版只保留模板结构
+- `memory/MEMORY.md`：稳定记忆、决策与待决问题索引；公开版只保留模板结构
+- `projects/README.md`：项目首页、交接页、操作手册与观察记录索引；公开版只保留机制项目与示例项目
 - `playbooks/README.md`：可复用的方法手册
 - `continuations/README.md`：可继续延展的线索
-- `handoff/`：跨模型协作记录、同步队列与变更历史
+- `handoff/`：跨模型协作记录、同步队列与变更历史；公开版只保留空白模板
 - `agents/`：模型适配说明
 - `entrypoints/README.md`：根入口与本地入口投影的来源文件
-- `backups/`：迁移归档快照，正常遍历时排除
+- `backups/` 与 `archive/`：迁移归档快照与归档项目；公开版只保留占位说明，正常遍历时排除
 
 ## 本地运行态
 

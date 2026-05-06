@@ -29,15 +29,23 @@ personal profile material, private project records, or local runtime state.
 - `scripts/*.sh`
 - `projects/SharedAIContext/project.md`
 - `projects/SkillsInfrastructure/project.md`
+- placeholder README/template files under:
+  - `profile/`
+  - `memory/`
+  - `handoff/`
+  - `continuations/`
+  - `projects/`
+  - `archive/`
+  - `backups/`
 
 ## Excluded Paths
 
 - `.git/`
-- `backups/`
-- `archive/`
-- `profile/`
-- `memory/`
-- `handoff/`
+- real private contents under `backups/`
+- real private contents under `archive/`
+- real private contents under `profile/`
+- real private contents under `memory/`
+- real private contents under `handoff/`
 - private project folders under `projects/`
 - local runtime folders such as `.codex`, `.claude`, `.gemini`, `.kimi`
 - any deploy keys, credentials, sqlite/jsonl files, logs, sessions, caches, or lock files
@@ -47,6 +55,7 @@ personal profile material, private project records, or local runtime state.
 - Private absolute paths are replaced with placeholders such as `/path/to/AI-Shared` or `${HOME}`.
 - Private names, domains, host names, project names, and notification channel IDs are replaced with generic terms.
 - Historical migration notes and project handover snapshots are not included unless they are already generic.
+- Excluded private areas may have placeholder README/template files so readers can understand the intended structure.
 - The public export should be initialized as a new Git repository with clean history.
 
 ## Pre-Publish Checks
