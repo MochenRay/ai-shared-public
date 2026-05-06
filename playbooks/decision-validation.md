@@ -1,70 +1,67 @@
-# 方案启动前验证清单
+# Decision Validation Checklist
 
-在显著功能或架构方案进入实现阶段前，过一遍以下 6 个维度。
-每项只需判断：✅ 对齐 / ⚠️ 有疑问 / ❌ 违反。
+Use this checklist before a significant feature, architecture plan, or workflow
+change enters implementation. For each item, mark: aligned, uncertain, or
+violated.
 
-有任何 ❌ → 停下来修方案，不要带着明确的原则冲突进入执行。
+If any item is violated, stop and repair the plan before execution.
 
----
+## Checks
 
-## 6 个验证维度
+### 1. Tool Fit
 
-### 1. 工具选择
-方案中每项任务是否用了最合适的工具？
-- 本地代码、文件和复杂推理 → 当前本地执行器 / ChatGPT Pro / Codex
-- 批量/长时间运行 → AsyncWorker (remote worker)
-- 超长文档、实时广覆盖、多模态和 Google 生态 → Gemini Pro
-- 中文方案、PRD、审稿和长文改写 → Kimi
-- Notion 页面、数据库、会议和工作区上下文 → Notion
+Does each task use the right execution surface?
 
-详见 `rules/工具选择提醒.md`
+- local code and file edits -> local coding agent
+- long-running batch work -> async worker
+- broad research or multimodal work -> research-capable model/tool
+- docs, PRDs, and review -> writing/review-capable model/tool
+- workspace databases or notes -> the relevant workspace connector
 
-### 2. 双机分工
-任务的性质和目标机器是否匹配？
-- **Claude (MacBook)**：判断型、交互型、需要对话上下文
-- **AsyncWorker (remote worker)**：批量型、定时型、长耗时、信息搜集
+### 2. Execution Boundary
 
-详见 `rules/持续更新记忆库.md` — 双机任务路由规则
+Does the plan distinguish interactive judgment work from batch/background work?
 
-### 3. 安全边界
-方案中是否包含以下高风险操作？如有，是否已设置确认门控？
-- 批量修改 / 删除 / 目录移动 / 覆盖式替换
+- judgment-heavy work should keep a human review point
+- batch work should have clear input, output, timeout, and reporting expectations
 
-详见 `rules/智能体身份与核心使命.md` — 安全边界
+### 3. Safety Boundary
 
-### 4. 因果链验证（方案输出前三问）
-1. **因果成立吗？** 因果链是否经过验证，而非假设？
-2. **当前状态是什么？** 当前系统状态是否已查证，而非从记忆推断？
-3. **失败会怎样？** 失败模式是否可接受？
+Does the plan include high-risk operations?
 
-详见 `rules/互动风格指南.md` — 认知债务防护
+- bulk edits
+- deletes
+- directory moves
+- overwrite-style replacements
+- credential, account, payment, legal, medical, or financial surfaces
 
-### 5. 超级个体原则
-方案是否保留了 Human 的判断检查点？
-- AI 提方案，Human 拍板
-- 不应以"效率"为由绕过重要决策节点
-- 检查：这个方案是在辅助决策，还是在替代决策？
+If yes, add an explicit confirmation or verification gate.
 
-详见 `rules/关于我.md` — 核心角色
+### 4. Causal Chain
 
-### 6. 复杂度适当性
-方案的复杂度是否匹配实际需求？
-- 简单需求 = 简单方案，不做投机性抽象
-- 三行相似代码 > 一个过早的抽象
-- 只解决当下存在的问题，不为假设的未来需求设计
+Before presenting the plan, ask:
 
----
+1. Is the causal chain verified?
+2. Is the current state checked?
+3. What happens if this fails?
 
-## 触发时机
+### 5. Human Checkpoint
 
-- 新功能计划完成后、进入执行前（`[codex-qa]` 节点之后）
-- 涉及架构改动的任何方案
-- 感觉"这个方案好像有点绕"时
+Does the plan preserve human judgment where it matters?
 
-**不需要每次都跑**：小改动、bug 修复、单文件修改不需要走这个流程。
+- AI proposes
+- human approves irreversible or strategic choices
+- implementation proceeds after boundaries are clear
 
----
+### 6. Complexity Fit
 
-## 工具集成
+Does the plan match the actual problem size?
 
-Claude Code 中可直接调用：`constitutional-validator` agent（`~/.claude/agents/`）
+- simple need -> simple solution
+- avoid speculative abstraction
+- solve the present known problem first
+
+## Trigger
+
+Use for new feature plans, architecture changes, and plans that feel unusually
+complex. Skip for small bug fixes and narrow single-file edits.

@@ -26,10 +26,14 @@ personal profile material, private project records, or local runtime state.
 - `rules/skills-governance.md`
 - `rules/sync-policy.md`
 - `playbooks/*.md`
-- `scripts/*.sh`
+- `scripts/compare-shared-context.sh`
+- `scripts/sync-queue.sh`
+- `scripts/validate-shared-writeback.sh`
 - `projects/SharedAIContext/project.md`
 - `projects/SkillsInfrastructure/project.md`
 - placeholder README/template files under:
+  - `rules/`
+  - `playbooks/`
   - `profile/`
   - `memory/`
   - `handoff/`
@@ -63,13 +67,15 @@ personal profile material, private project records, or local runtime state.
 Run from the public export root:
 
 ```bash
-find . -type d -name .git -o -path './backups*' -o -path './profile*' -o -path './memory*' -o -path './handoff*' -o -path './archive*'
+find . -name .DS_Store -print
 rg -n --hidden --glob '!/.git/**' 'PRIVATE_USER|PRIVATE_ORG|PRIVATE_DOMAIN|PRIVATE_CHANNEL_ID'
-rg -n --hidden --glob '!/.git/**' 'password|credential|credentials|api_key|apikey|bearer|oauth'
+bash -n scripts/*.sh
+AI_SHARED_ROOT="$PWD" bash scripts/validate-shared-writeback.sh audit-lines
 ```
 
-If `gitleaks` is available:
+If `detect-secrets` or `gitleaks` is available:
 
 ```bash
+uvx detect-secrets scan --all-files .
 gitleaks detect --no-git --source .
 ```

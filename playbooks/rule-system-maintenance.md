@@ -1,103 +1,78 @@
-# 规则系统维护手册
+# Rule System Maintenance
 
-> 目的：为当前 Codex 规则体系提供长期稳定的边界约束和审计检查框架。
-> 来源提炼：`规则文件架构规范`、`审计检查清单`
+This playbook defines a compact audit frame for shared rule repositories.
 
----
+## Layers
 
-## 文件边界
+### Entrypoints
 
-### 入口层
+Entrypoint files should only load and route:
 
-- [`${HOME}/.codex/AGENTS.md`](${HOME}/.codex/AGENTS.md)
-  - 只放入口索引、场景路由、技能总览
-  - 不堆具体规则细节
+- root-level `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`
+- tool-home entrypoints under `entrypoints/homes/`
+- model adapters under `agents/`
 
-### 规则层
+They should not carry full policy bodies.
 
-- `rules/智能体身份与核心使命.md`
-  - 放事实校验、安全边界、工作方式
-- `rules/互动风格指南.md`
-  - 放输出结构和表达风格
-- `rules/人格底色.md`
-  - 放性格基底和说话气质
-- `rules/持续更新记忆库.md`
-  - 只放用户明确确认的长期偏好
+### Rules
 
-### 记忆层
+Rules describe how agents should work:
 
-- `memory/MEMORY.md`
-  - 只做索引和导航
-- `memory/*.md`
-  - 放项目知识、操作手册、长期主题
+- shared boundaries
+- writeback rules
+- sync rules
+- safety constraints
+- output style defaults
 
-## 审计时优先检查的 6 件事
+### Memory
 
-### 1. 跨文件矛盾
+Memory describes what is known:
 
-重点看：
+- stable facts
+- decisions
+- project knowledge
+- open questions
 
-- 同一动作是否一处允许、一处禁止
-- 同一流程在不同文件中的步骤顺序是否冲突
-- 同一配置、角色、工具描述是否互相打架
+## Audit Checklist
 
-### 2. 规则埋深
+### 1. Cross-File Contradiction
 
-判定信号：
+- Does one file allow what another forbids?
+- Do two files define different step orders for the same workflow?
+- Are tools, roles, or paths described inconsistently?
 
-- 关键行为规则埋在大段背景信息后面
-- 文件已经很长，但真正约束行为的规则靠后才出现
+### 2. Buried Rules
 
-修复方式：
+- Are important constraints hidden after long background sections?
+- Should a long rule file be split into an index plus topic files?
 
-- 把关键规则前移
-- 或拆到独立文件，再在入口处引用
+### 3. File Growth
 
-### 3. 文件膨胀
+- Are project details leaking into the rule layer?
+- Are old narratives kept where a current rule would suffice?
+- Are command templates repeated across files?
 
-常见来源：
+### 4. Duplication
 
-- 项目细节塞进规则层
-- 历史叙事没提炼，原样堆着
-- 命令模板到处重复
+- Is the same rule repeated in multiple places?
+- Can secondary locations become references instead of copies?
 
-修复方式：
+### 5. Stale References
 
-- 把项目内容移到 `memory/`
-- 把重复模板合并
-- 保留规则，删掉冗余叙事
+- Do referenced paths still exist?
+- Are named tools, commands, agents, schedules, or versions still current?
+- Do date-sensitive notes have refresh dates?
 
-### 4. 重复内容
+### 6. Layer Violation
 
-判定标准：
+- Style files should not carry operational runbooks.
+- Rule files should not carry project memory.
+- Memory files should not carry policy-level rules.
 
-- 同一规则在多个文件反复出现
-- 文案不同，但约束含义相同
+## Repair Order
 
-修复方式：
-
-- 选一个规范位置保留
-- 其他位置改为引用或删除
-
-### 5. 过时引用
-
-重点检查：
-
-- 被引用的路径是否仍存在
-- 提到的工具、agent、cron、命令是否仍有效
-- 日期、版本和配置是否已经明显过时
-
-### 6. 职责越界
-
-典型问题：
-
-- 人格/风格文件里混入操作流程
-- 规则文件里混入项目记忆
-- 记忆文件里混入宪法级偏好
-
-## 当前原则
-
-1. 入口层只索引，不承载正文。
-2. 规则层写“应如何工作”，记忆层写“已经知道什么”。
-3. 用户偏好和助手运维知识严格分层，不混写。
-4. 审计时优先修复矛盾和越界，再处理膨胀和美化问题。
+1. Fix contradictions and safety issues.
+2. Move content to the correct layer.
+3. Replace duplicate bodies with references.
+4. Split oversized files into an index plus topic files.
+5. Update indexes and validation scripts.
