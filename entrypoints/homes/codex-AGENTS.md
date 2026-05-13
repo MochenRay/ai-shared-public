@@ -18,3 +18,4 @@
 - `~/.codex` 继续保存 Codex 自身原始会话、缓存和运行态
 - 不把 `~/.codex/history.jsonl`、`sessions/`、`archived_sessions/`、sqlite 文件当作共享记忆
 - 如果本地 `rules`、`projects`、`memory` 或本地投影副本出现长期知识增量，先登记 `/path/to/AI-Shared/handoff/sync-queue.md`，再判断是否回写共享层；运行态和临时产物不要同步
+- 如果上述必读路径实际读不到内容，先阻断依赖该上下文的任务并汇报；不能把“知道路径”当作“已读内容”

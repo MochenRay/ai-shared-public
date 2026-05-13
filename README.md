@@ -40,6 +40,8 @@
 1. `README.md`
 2. `agents/<model>.md`
 
+如果冷启动要求读取的文件因权限、路径、sandbox、include directory、文件缺失或工具限制未实际读到内容，先停止依赖该上下文的任务并向用户汇报；不能把“知道路径”当作“已读内容”。
+
 只在需要时再继续读取：
 
 - `rules/policy.md`：第一次写回共享层前，或边界不清时
@@ -90,6 +92,7 @@
 ```text
 请把 /path/to/AI-Shared 视为 Codex、Claude、Gemini、Kimi 共用的长期知识主仓。
 先读取 README.md 和 /path/to/AI-Shared/agents/<model>.md。
+如果这些必读文件读不到具体内容，先停止依赖该上下文的任务并汇报缺失路径、失败原因和修复方式，不要在盲态继续推进。
 只有在准备写回共享层，或边界不清时，再读取 /path/to/AI-Shared/rules/policy.md。
 如果本地长期文档发生变化，先看 /path/to/AI-Shared/handoff/sync-queue.md，登记候选项，再判断是否回写共享层正式文档。
 中大型实现、跨模块改造、可并行排障或联调任务，默认优先使用 git worktree + agents 集群；只有任务很小、高度耦合、或阻塞点是单一事实核查/单机实验时，才默认不启用并行。
