@@ -23,6 +23,7 @@
 
 - `unified-dev-pipeline.md`
 - `unified-dev-pipeline-reference.md`
+- `udp-v2-foundation-plan.md` — UDP v2 地基计划：冻结 Human coding SOP contract，再映射 Pocock / Superpowers adapter
 - `task-slicing.md`
 - `todo-capture.md`
 - `prompt-patterns.md`

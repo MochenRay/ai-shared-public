@@ -5,7 +5,22 @@
 
 ---
 
-## 当前版本：v1.0（2026-03-24）
+## 当前版本：v2 foundation-router（2026-05-14）
+
+> 2026-05-14：`unified-dev-pipeline` 名称继续作为正式入口；旧 v1 融合实现已废弃。当前入口是 `~/.agents/skills/unified-dev-pipeline/SKILL.md` 薄路由；稳定真相在 `unified-dev-pipeline.md` 与 `unified-dev-pipeline-reference.md`。
+
+### 当前使用口径
+
+- `unified-dev-pipeline.md`：稳定 SOP contract。
+- `unified-dev-pipeline-reference.md`：adapter matrix、upstream watch registry 与当前吸收决策。
+- `~/.agents/skills/unified-dev-pipeline/SKILL.md`：只做路由，不再保存完整历史与上游细节。
+- 旧 v1 不再作为可执行或更新对象；它只保留在演进历史中用于追溯。
+- Pocock adapters 已同步到 `e74f0061bb67`：新增 `setup-matt-pocock-skills`、`diagnose`、`grill-with-docs`、`triage`，选择性同步 `write-a-prd`、`prd-to-issues`、`tdd`，升级 `improve-codebase-architecture`，旧 `triage-issue` 降为兼容 shim。
+- Superpowers adapters 已复核到 v5.1.0：Codex 插件文件与 upstream 一致，Claude plugin 已从 `5.0.5` 升到 `5.1.0`。
+
+## 已废弃版本：v1.0（2026-03-24）
+
+> 状态：deprecated。此节只作历史记录，不再作为 `unified-dev-pipeline` 的当前使用说明。
 
 ### 工作流全景
 
@@ -82,7 +97,7 @@
 > 看到好的实践、技巧、工作流片段，先扔这里。攒 3-5 条后做一次集中锻造 session。
 > 每条记录：来源 + 核心点 + 可能解决的痛点。没有明确痛点的不放。
 
-（暂无待锻造素材）
+- 2026-05-14 | UDP v2 foundation | 目标是把 `unified-dev-pipeline` 从一次 Pocock × Superpowers 融合产物升级为 Human coding SOP 控制层；先冻结 SOP contract，再写 adapter matrix，最后决定吸收哪些上游更新。计划见 `playbooks/udp-v2-foundation-plan.md`。
 
 ---
 
@@ -97,6 +112,30 @@
 ---
 
 ## 演进历史
+
+### v2 foundation-router — 同名入口接管（2026-05-14）
+
+**状态**：已落地。`unified-dev-pipeline` 继续作为正式名称，旧 v1 融合实现废弃。
+
+**动机**：Pocock / Superpowers 上游继续迭代后，旧 UDP 不应作为一次性融合副本继续强行同步。新地基把 UDP 定义为 Human coding SOP 控制层，再用 adapter matrix 吸收上游变化。
+
+**已完成**：
+- 新增 `playbooks/udp-v2-foundation-plan.md`
+- 改写 `playbooks/unified-dev-pipeline.md` 为 SOP contract
+- 改写 `playbooks/unified-dev-pipeline-reference.md` 为 adapter reference + upstream watch registry
+- 修 `~/.claude/scripts/upstream-diff.py`，支持 GitHub tree 定位 Pocock 多层 `skills/*/<name>/SKILL.md`，并输出 `path` / `content` / `semantic` 分类
+- 审 Pocock / Superpowers 当前 adapter 候选，冻结吸收 / 不吸收决策
+- 改写 `~/.agents/skills/unified-dev-pipeline/SKILL.md` 为薄路由
+- 安装首批 Pocock adapter：`setup-matt-pocock-skills`、`diagnose`、`grill-with-docs`
+- 将 `git-guardrails-claude-code`、`grill-me` 的上游路径更新到 Pocock 新目录
+- 将 `tdd` 选择性同步到 Pocock `e74f0061bb67`，保留 Human-local Iron Law 与 Superpowers checklist
+- 安装 Pocock `triage` issue 状态机，旧 `triage-issue` 降为兼容 shim
+- 选择性同步 `write-a-prd` 与 `prd-to-issues`，保留 Human-local 访谈流、HITL/AFK 和两层计划 bridge
+- 升级 `improve-codebase-architecture` 到 Pocock 新 glossary / ADR / deepening 语义
+- 复核 Superpowers v5.1.0：Codex 插件 skills 与 upstream `f2cbfbefebbf` 一致；Claude `superpowers@superpowers-marketplace` 已通过 plugin manager 升级到 `5.1.0`
+
+**下一步**：
+- 只保留例行 upstream watch；新变化按 `path/content/semantic/major` 分类处理
 
 ### v1.0 — Pocock × Superpowers 融合落地（2026-03-24）
 
